@@ -1079,10 +1079,10 @@ void AuxiliaryPanel::update_all_cover()
      m_text_model_name->Wrap(-1);
      m_sizer_model_name->Add(m_text_model_name, 0, wxALIGN_CENTER, 0);
 
-     m_imput_model_name =  new ::TextInput(this, wxEmptyString, wxEmptyString, wxEmptyString, wxDefaultPosition,wxSize(FromDIP(450),FromDIP(30)), wxTE_PROCESS_ENTER);
-     m_imput_model_name->GetTextCtrl()->SetFont(::Label::Body_14);
-     m_imput_model_name->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
-     m_sizer_model_name->Add(m_imput_model_name, 0, wxALIGN_CENTER, 0);
+     m_input_model_name =  new ::TextInput(this, wxEmptyString, wxEmptyString, wxEmptyString, wxDefaultPosition,wxSize(FromDIP(450),FromDIP(30)), wxTE_PROCESS_ENTER);
+     m_input_model_name->GetTextCtrl()->SetFont(::Label::Body_14);
+     m_input_model_name->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
+     m_sizer_model_name->Add(m_input_model_name, 0, wxALIGN_CENTER, 0);
 
      wxBoxSizer *m_sizer_license = new wxBoxSizer(wxHORIZONTAL);
      auto m_text_license = new wxStaticText(this, wxID_ANY, _L("License"), wxDefaultPosition, wxSize(180, -1), 0);
@@ -1105,7 +1105,7 @@ void AuxiliaryPanel::update_all_cover()
      Fit();
 
      m_input_designer->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_designer, this);
-     m_imput_model_name->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_model, this);
+     m_input_model_name->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_model, this);
      m_combo_license->Bind(wxEVT_COMMAND_COMBOBOX_SELECTED, &DesignerPanel::on_select_license, this);
 }
 
