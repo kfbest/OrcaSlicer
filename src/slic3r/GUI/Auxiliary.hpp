@@ -180,7 +180,7 @@ public:
     ~DesignerPanel();
 
     ::TextInput*        m_input_designer {nullptr};
-    ::TextInput*        m_imput_model_name {nullptr};
+    ::TextInput*        m_input_model_name {nullptr};
     ComboBox*           m_combo_license {nullptr};
     bool Show(bool show) override;
     void                init_license_list();
