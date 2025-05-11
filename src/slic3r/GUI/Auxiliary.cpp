@@ -1158,12 +1158,12 @@ void DesignerPanel::update_info()
     }
 
     if (wxGetApp().plater()->model().model_info != nullptr) {
-        m_imput_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
+        m_input_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
         if (!m_combo_license->SetStringSelection(wxString::FromUTF8(wxGetApp().plater()->model().model_info->license))) {
             m_combo_license->SetSelection(0);
         }
     } else {
-        m_imput_model_name->GetTextCtrl()->SetValue(wxEmptyString);
+        m_input_model_name->GetTextCtrl()->SetValue(wxEmptyString);
         m_combo_license->SetSelection(0);
     }
 }
@@ -1171,7 +1171,7 @@ void DesignerPanel::update_info()
 void DesignerPanel::msw_rescale()
 {
     m_input_designer->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
-    m_imput_model_name->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
+    m_input_model_name->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
     m_combo_license->SetSize(wxSize(FromDIP(450), -1));
 }
 
