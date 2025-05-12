@@ -1166,14 +1166,19 @@ void DesignerPanel::on_input_enter_description(wxCommandEvent &evt)
 
 void DesignerPanel::update_info() 
 {
-    if (wxGetApp().plater()->model().design_info != nullptr) {
+    BOOST_LOG_TRIVIAL(info) << "update_info called. design_info: " 
+                            << (wxGetApp().plater()->model().design_info ? "initialized" : "nullptr")
+                            << ", model_info: "
+                            << (wxGetApp().plater()->model().model_info ? "initialized" : "nullptr");
+
+    if (wxGetApp().plater() && wxGetApp().plater()->model().design_info != nullptr) {
         wxString text = wxString::FromUTF8(wxGetApp().plater()->model().design_info->Designer);
         m_input_designer->GetTextCtrl()->SetValue(text);
     } else {
         m_input_designer->GetTextCtrl()->SetValue(wxEmptyString);
     }
 
-    if (wxGetApp().plater()->model().model_info != nullptr) {
+    if (wxGetApp().plater() && wxGetApp().plater()->model().model_info != nullptr) {
         m_input_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
         m_input_description->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));
         if (!m_combo_license->SetStringSelection(wxString::FromUTF8(wxGetApp().plater()->model().model_info->license))) {
@@ -1184,7 +1189,6 @@ void DesignerPanel::update_info()
         m_input_description->GetTextCtrl()->SetValue(wxEmptyString);
         m_combo_license->SetSelection(0);
     }
-
 }
 
 void DesignerPanel::msw_rescale()
