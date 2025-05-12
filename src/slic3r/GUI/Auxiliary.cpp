@@ -855,7 +855,7 @@ void AuxiliaryPanel::init_tabpanel()
     sizer_side_tools->Add(back_btn, 1, wxEXPAND, 0);
     m_tabpanel = new Tabbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, sizer_side_tools, wxNB_LEFT | wxTAB_TRAVERSAL | wxNB_NOPAGETHEME);
     m_tabpanel->SetBackgroundColour(wxColour("#FEFFFF"));
-    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, [](wxBookCtrlEvent &e) { ; });
+    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, [this](wxBookCtrlEvent &e) { ; });
 
     m_designer_panel          = new DesignerPanel(m_tabpanel, AuxiliaryFolderType::DESIGNER);
     m_pictures_panel          = new AuFolderPanel(m_tabpanel, AuxiliaryFolderType::MODEL_PICTURE);
@@ -1096,7 +1096,7 @@ void AuxiliaryPanel::update_all_cover()
     wxTextCtrl *m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
                                                 wxSize(FromDIP(450), FromDIP(100)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
     m_input_description->SetFont(::Label::Body_14);
-    m_sizer_description->Add(m_text_description, 1, wxEXPAND | wxALIGN_CENTER, 0);
+    m_sizer_description->Add(m_input_description, 1, wxEXPAND | wxALIGN_CENTER, 0);
 
 
      m_sizer_body->Add( 0, 0, 0, wxTOP, FromDIP(50) );
