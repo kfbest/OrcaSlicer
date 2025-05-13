@@ -1116,6 +1116,7 @@ void AuxiliaryPanel::update_all_cover()
 
      m_input_designer->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_designer, this);
      m_input_model_name->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_model, this);
+     m_input_description->Bind(wxEVT_TEXT, &DesignerPanel::on_input_enter_description, this);
      m_combo_license->Bind(wxEVT_COMMAND_COMBOBOX_SELECTED, &DesignerPanel::on_select_license, this);
 }
 
