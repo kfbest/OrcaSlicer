@@ -1092,9 +1092,9 @@ void AuxiliaryPanel::update_all_cover()
      auto m_text_description = new wxStaticText(this, wxID_ANY, _L("Description:"), wxDefaultPosition, wxSize(180, -1), 0); // Using "Description:" with the : because that already exists in the Localizations files
      m_text_description->SetForegroundColour(*wxBLACK);
      m_text_description->Wrap(-1);
-     m_sizer_description->Add(m_text_description, 0, wxALIGN_CENTER, 0);
+     m_sizer_description->Add(m_input_description, 1, wxEXPAND | wxALIGN_CENTER, 0);
      wxTextCtrl *m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
-                                                wxSize(FromDIP(450), FromDIP(100)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
+                                                wxSize(FromDIP(450), FromDIP(600)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
      m_input_description->SetFont(::Label::Body_14);
      m_sizer_description->Add(m_input_description, 1, wxEXPAND | wxALIGN_CENTER, 0);
 
@@ -1107,7 +1107,7 @@ void AuxiliaryPanel::update_all_cover()
      m_sizer_body->Add(m_sizer_license, 0, wxLEFT | wxALIGN_LEFT, FromDIP(50));
      init_license_list();
      m_sizer_body->Add(0, 0, 0, wxTOP, FromDIP(20));
-     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxALIGN_LEFT, FromDIP(50));
+     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxALIGN_LEFT | wxEXPAND, FromDIP(50));
 
 
      SetSizer(m_sizer_body);
