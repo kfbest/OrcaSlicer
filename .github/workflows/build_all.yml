@@ -55,10 +55,27 @@ jobs:
           # - os: windows-latest
           - os: macos-14
             arch: arm64
-    uses: ./.github/workflows/build_check_cache.yml
-    with:
-      os: ${{ matrix.os }}
-      arch: ${{ matrix.arch }}
-      build-deps-only: ${{ inputs.build-deps-only || false }}
-    secrets: inherit
-  
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Cache build directory
+        uses: actions/cache@v4
+        with:
+          path: build
+          key: ${{ runner.os }}-build-${{ hashFiles('src/**', 'CMakeLists.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      # Add your build steps here, e.g.:
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      - name: Build
+        run: cmake --build build --parallel $(sysctl -n hw.ncpu || nproc)
+
+      # ...other steps as needed...
+
