@@ -855,7 +855,7 @@ void AuxiliaryPanel::init_tabpanel()
     sizer_side_tools->Add(back_btn, 1, wxEXPAND, 0);
     m_tabpanel = new Tabbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, sizer_side_tools, wxNB_LEFT | wxTAB_TRAVERSAL | wxNB_NOPAGETHEME);
     m_tabpanel->SetBackgroundColour(wxColour("#FEFFFF"));
-    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, [this](wxBookCtrlEvent &e) { ; });
+    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, (wxBookCtrlEvent &e) { ; });
 
     m_designer_panel          = new DesignerPanel(m_tabpanel, AuxiliaryFolderType::DESIGNER);
     m_pictures_panel          = new AuFolderPanel(m_tabpanel, AuxiliaryFolderType::MODEL_PICTURE);
@@ -1167,19 +1167,6 @@ void DesignerPanel::on_input_enter_description(wxCommandEvent &evt)
 
 void DesignerPanel::update_info() 
 {
-    // BOOST_LOG_TRIVIAL(info) << "Plater: " << (wxGetApp().plater() ? "initialized" : "nullptr");
-    // BOOST_LOG_TRIVIAL(info) << "Model: " << (wxGetApp().plater() && wxGetApp().plater()->model() ? "initialized" : "nullptr");
-    // BOOST_LOG_TRIVIAL(info) << "design_info: " 
-    //                     << (wxGetApp().plater()->model().design_info ? "initialized" : "nullptr");
-    // BOOST_LOG_TRIVIAL(info) << "model_info: " 
-    //                     << (wxGetApp().plater()->model().model_info ? "initialized" : "nullptr");
-
-
-    // if (!wxGetApp().plater() || !wxGetApp().plater()->model()) {
-    //     BOOST_LOG_TRIVIAL(error) << "Plater or Model is null. Skipping update_info.";
-    //     return;
-    // }
-
     if (wxGetApp().plater()->model().design_info != nullptr) {
         wxString text = wxString::FromUTF8(wxGetApp().plater()->model().design_info->Designer);
         m_input_designer->GetTextCtrl()->SetValue(text);
@@ -1189,13 +1176,13 @@ void DesignerPanel::update_info()
 
     if (wxGetApp().plater()->model().model_info != nullptr) {
         m_input_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
-        m_input_description->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));  //this line (or 1197 below) causes crash on startup
+        m_input_description->wxTextEntry()->ChangeValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));  //this line (or 1197 below) causes crash on startup
         if (!m_combo_license->SetStringSelection(wxString::FromUTF8(wxGetApp().plater()->model().model_info->license))) {
             m_combo_license->SetSelection(0);
         }
     } else {
         m_input_model_name->GetTextCtrl()->SetValue(wxEmptyString);
-        m_input_description->SetValue(wxEmptyString);  //this line (or 1191 above) causes crash on startup
+        m_input_description->wxTextEntry()->ChangeValue(wxEmptyString);  //this line (or 1191 above) causes crash on startup
         m_combo_license->SetSelection(0);
     }
 }
