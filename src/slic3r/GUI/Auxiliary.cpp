@@ -1094,7 +1094,7 @@ void AuxiliaryPanel::update_all_cover()
      m_text_description->Wrap(-1);
      m_sizer_description->Add(m_input_description, 1, wxALIGN_CENTER, 0);
      wxTextCtrl *m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
-                                                wxSize(FromDIP(450), FromDIP(400)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
+                                                wxSize(FromDIP(250), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
      m_input_description->SetFont(::Label::Body_14);
      m_sizer_description->Add(m_input_description, 1, wxALIGN_CENTER, 0);
 
@@ -1189,13 +1189,13 @@ void DesignerPanel::update_info()
 
     if (wxGetApp().plater()->model().model_info != nullptr) {
         m_input_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
-       // m_input_description->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));  //this line (or 1197 below) causes crash on startup
+        m_input_description->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));  //this line (or 1197 below) causes crash on startup
         if (!m_combo_license->SetStringSelection(wxString::FromUTF8(wxGetApp().plater()->model().model_info->license))) {
             m_combo_license->SetSelection(0);
         }
     } else {
         m_input_model_name->GetTextCtrl()->SetValue(wxEmptyString);
-       // m_input_description->GetTextCtrl()->SetValue(wxEmptyString);  //this line (or 1191 above) causes crash on startup
+        m_input_description->SetValue(wxEmptyString);  //this line (or 1191 above) causes crash on startup
         m_combo_license->SetSelection(0);
     }
 }
