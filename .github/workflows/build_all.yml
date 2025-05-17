@@ -65,8 +65,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew update
-          brew install boost tbb glew3 libomp cmake ninja pkg-config
-          brew install glew
+          brew install boost tbb glew libomp cmake ninja pkg-config
 
       - name: Cache build directory
         uses: actions/cache@v4
