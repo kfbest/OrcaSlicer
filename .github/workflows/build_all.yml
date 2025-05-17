@@ -1,34 +1,34 @@
 name: Build all
 
 on:
-  push:
-    branches:
-     - main
-     - release/*
-    paths:
-     - 'deps/**'
-     - 'src/**'
-     - '**/CMakeLists.txt'
-     - 'version.inc'
-     - 'localization/**'
-     - 'resources/**'
-     - ".github/workflows/build_*.yml"
-     - 'flatpak/**'
+  # push:
+  #   branches:
+  #    - main
+  #    - release/*
+  #   paths:
+  #    - 'deps/**'
+  #    - 'src/**'
+  #    - '**/CMakeLists.txt'
+  #    - 'version.inc'
+  #    - 'localization/**'
+  #    - 'resources/**'
+  #    - ".github/workflows/build_*.yml"
+  #    - 'flatpak/**'
 
-  pull_request:
-    branches:
-     - main
-     - release/*
-    paths:
-     - 'deps/**'
-     - 'src/**'
-     - '**/CMakeLists.txt'
-     - 'version.inc'
-     - ".github/workflows/build_*.yml"
-     - 'BuildLinux.sh'
-     - 'build_release_vs2022.bat'
-     - 'build_release_macos.sh'
-     - 'flatpak/**'
+  # pull_request:
+  #   branches:
+  #    - main
+  #    - release/*
+  #   paths:
+  #    - 'deps/**'
+  #    - 'src/**'
+  #    - '**/CMakeLists.txt'
+  #    - 'version.inc'
+  #    - ".github/workflows/build_*.yml"
+  #    - 'BuildLinux.sh'
+  #    - 'build_release_vs2022.bat'
+  #    - 'build_release_macos.sh'
+  #    - 'flatpak/**'
 
   workflow_dispatch: # allows for manual dispatch
     inputs:
@@ -42,6 +42,45 @@ concurrency:
   cancel-in-progress: true
   
 
+# jobs:
+#   build_all:
+#     name: Build All
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         include:
+#           # Deprecate 20.04appimage
+#           # - os: ubuntu-20.04
+#           # - os: ubuntu-24.04
+#           # - os: windows-latest
+#           - os: macos-14
+#             arch: arm64
+#     runs-on: ${{ matrix.os }}
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 1
+
+#       - name: Install dependencies
+#         run: |
+#           brew update
+#           brew install boost tbb glew libomp cmake ninja pkg-config
+
+#       - name: Cache build directory
+#         uses: actions/cache@v4
+#         with:
+#           path: build
+#           key: ${{ runner.os }}-build-${{ hashFiles('src/**', 'CMakeLists.txt') }}
+#           restore-keys: |
+#             ${{ runner.os }}-build-
+
+#       - name: Configure CMake
+#         run: cmake -S . -B build
+
+#       - name: Build
+#         run: cmake --build build --parallel $(sysctl -n hw.ncpu || nproc)
+
 jobs:
   build_all:
     name: Build All
@@ -51,33 +90,13 @@ jobs:
         include:
           # Deprecate 20.04appimage
           # - os: ubuntu-20.04
-          # - os: ubuntu-24.04
-          # - os: windows-latest
+          - os: ubuntu-24.04
+          - os: windows-latest
           - os: macos-14
             arch: arm64
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Install dependencies
-        run: |
-          brew update
-          brew install boost tbb glew libomp cmake ninja pkg-config
-
-      - name: Cache build directory
-        uses: actions/cache@v4
-        with:
-          path: build
-          key: ${{ runner.os }}-build-${{ hashFiles('src/**', 'CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-
-      - name: Configure CMake
-        run: cmake -S . -B build
-
-      - name: Build
-        run: cmake --build build --parallel $(sysctl -n hw.ncpu || nproc)
-
+    uses: ./.github/workflows/build_check_cache.yml
+    with:
+      os: ${{ matrix.os }}
+      arch: ${{ matrix.arch }}
+      build-deps-only: ${{ inputs.build-deps-only || false }}
+    secrets: inherit
