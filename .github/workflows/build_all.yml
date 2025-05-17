@@ -65,7 +65,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew update
-          brew install boost
+          brew install boost tbb
 
       - name: Cache build directory
         uses: actions/cache@v4
