@@ -1092,12 +1092,11 @@ void AuxiliaryPanel::update_all_cover()
      auto m_text_description = new wxStaticText(this, wxID_ANY, _L("Description:"), wxDefaultPosition, wxSize(180, -1), 0); // Using "Description:" with the : because that already exists in the Localizations files
      m_text_description->SetForegroundColour(*wxBLACK);
      m_text_description->Wrap(-1);
-     m_sizer_description->Add(m_input_description, 0, wxALIGN_CENTER, 0);
+     m_sizer_description->Add(m_text_description, 0, wxALIGN_TOP | wxRIGHT, FromDIP(10));
      m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
-                                                wxSize(FromDIP(450), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
+                                          wxSize(FromDIP(450), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
      m_input_description->SetFont(::Label::Body_14);
-     m_sizer_description->Add(m_input_description, 0, wxALIGN_CENTER, 0);
-
+     m_sizer_description->Add(m_input_description, 1, wxEXPAND, 0);
 
      m_sizer_body->Add(0, 0, 0, wxTOP, FromDIP(50));
      m_sizer_body->Add(m_sizer_designer, 0, wxLEFT | wxALIGN_LEFT, FromDIP(50));
@@ -1107,8 +1106,7 @@ void AuxiliaryPanel::update_all_cover()
      m_sizer_body->Add(m_sizer_license, 0, wxLEFT | wxALIGN_LEFT, FromDIP(50));
      init_license_list();
      m_sizer_body->Add(0, 0, 0, wxTOP, FromDIP(20));
-     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxALIGN_LEFT | wxEXPAND, FromDIP(50));
-
+     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP(50));
 
      SetSizer(m_sizer_body);
      Layout();
@@ -1176,13 +1174,13 @@ void DesignerPanel::update_info()
 
     if (wxGetApp().plater()->model().model_info != nullptr) {
         m_input_model_name->GetTextCtrl()->SetValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->model_name));
-        m_input_description->ChangeValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));  //this line (or 1197 below) causes crash on startup
+        m_input_description->ChangeValue(wxString::FromUTF8(wxGetApp().plater()->model().model_info->description));
         if (!m_combo_license->SetStringSelection(wxString::FromUTF8(wxGetApp().plater()->model().model_info->license))) {
             m_combo_license->SetSelection(0);
         }
     } else {
         m_input_model_name->GetTextCtrl()->SetValue(wxEmptyString);
-        m_input_description->ChangeValue(wxEmptyString);  //this line (or 1191 above) causes crash on startup
+        m_input_description->ChangeValue(wxEmptyString);
         m_combo_license->SetSelection(0);
     }
 }
