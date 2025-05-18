@@ -1094,7 +1094,7 @@ void AuxiliaryPanel::update_all_cover()
      m_text_description->Wrap(-1);
      m_sizer_description->Add(m_text_description, 0, wxALIGN_TOP | wxRIGHT, FromDIP(10));
      m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
-                                          wxSize(FromDIP(450), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
+                                          wxSize(FromDIP(350), FromDIP(300)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
      m_input_description->SetFont(::Label::Body_14);
      m_sizer_description->Add(m_input_description, 1, wxEXPAND, 0);
 
@@ -1106,7 +1106,7 @@ void AuxiliaryPanel::update_all_cover()
      m_sizer_body->Add(m_sizer_license, 0, wxLEFT | wxALIGN_LEFT, FromDIP(50));
      init_license_list();
      m_sizer_body->Add(0, 0, 0, wxTOP, FromDIP(20));
-     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxRIGHT | wxEXPAND, FromDIP(50));
+     m_sizer_body->Add(m_sizer_description, 0, wxLEFT | wxRIGHT | wxALIGN_LEFT | wxEXPAND, FromDIP(50));
 
      SetSizer(m_sizer_body);
      Layout();
