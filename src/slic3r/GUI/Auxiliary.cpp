@@ -1094,7 +1094,7 @@ void AuxiliaryPanel::update_all_cover()
      m_text_description->Wrap(-1);
      m_sizer_description->Add(m_input_description, 1, wxALIGN_CENTER, 0);
      wxTextCtrl *m_input_description = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, 
-                                                wxSize(FromDIP(250), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
+                                                wxSize(FromDIP(450), FromDIP(200)), wxTE_MULTILINE | wxTE_PROCESS_ENTER);
      m_input_description->SetFont(::Label::Body_14);
      m_sizer_description->Add(m_input_description, 1, wxALIGN_CENTER, 0);
 
