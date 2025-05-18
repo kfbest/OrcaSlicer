@@ -855,7 +855,7 @@ void AuxiliaryPanel::init_tabpanel()
     sizer_side_tools->Add(back_btn, 1, wxEXPAND, 0);
     m_tabpanel = new Tabbook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, sizer_side_tools, wxNB_LEFT | wxTAB_TRAVERSAL | wxNB_NOPAGETHEME);
     m_tabpanel->SetBackgroundColour(wxColour("#FEFFFF"));
-    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, (wxBookCtrlEvent &e) {  });
+    m_tabpanel->Bind(wxEVT_BOOKCTRL_PAGE_CHANGED, [](wxBookCtrlEvent &e) { /* Event handling */ });
 
     m_designer_panel          = new DesignerPanel(m_tabpanel, AuxiliaryFolderType::DESIGNER);
     m_pictures_panel          = new AuFolderPanel(m_tabpanel, AuxiliaryFolderType::MODEL_PICTURE);
@@ -1192,7 +1192,6 @@ void DesignerPanel::msw_rescale()
     m_input_designer->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
     m_input_model_name->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
     m_combo_license->SetSize(wxSize(FromDIP(450), -1));
-    m_input_description->GetTextCtrl()->SetSize(wxSize(FromDIP(450), -1));
-}
+    m_input_description->SetSize(wxSize(FromDIP(450), -1));}
 
 }} // namespace Slic3r::GUI
